@@ -1,0 +1,179 @@
+<div class="movie-detail-container">
+
+  <div class="mb-3 mt-3">
+    <h1 class="m-0 mb-2">Movie Details</h1>
+    <p class="m-0" style="opacity: 0.7;">View information about your favorite movies and TV shows</p>
+  </div>
+  
+  @if (loading) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    <p class="mt-2">Loading movie details...</p>
+  }
+
+  
+  @if (error && !loading) {
+    <div class="error-container">
+      <mat-icon color="warn">error</mat-icon>
+      <h2>{{ error }}</h2>
+      <button mat-raised-button color="primary" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+        Back to Search
+      </button>
+    </div>
+  }
+
+  
+  @if (movieDetails && !loading) {
+    <div class="movie-detail">
+      <mat-card class="movie-detail-card">
+        <div class="movie-header">
+          <button 
+            mat-icon-button 
+            color="primary" 
+            (click)="goBack()"
+            class="back-button"
+          >
+            <mat-icon>arrow_back</mat-icon>
+          </button>
+          
+          <div class="movie-info">
+            <h1 class="movie-title">{{ movieDetails.details.title }}</h1>
+            <div class="movie-meta">
+              <span class="year">{{ movieDetails.details.releaseYear }}</span>
+              <span class="type" [class.tv-show]="movieDetails.details.type === 'show'">
+                {{ movieDetails.details.type === 'show' ? 'TV Show' : 'Movie' }}
+              </span>
+              @if (movieDetails.details.maturity?.rating?.value) {
+                <span class="rating">
+                  {{ movieDetails.details.maturity?.rating?.value }}
+                </span>
+              }
+              @if (movieDetails.details.runtime) {
+                <span class="runtime">
+                  <mat-icon>schedule</mat-icon>
+                  {{ Math.round(movieDetails.details.runtime / 60) }} min
+                </span>
+              }
+              @if (movieDetails.details.episodeCount) {
+                <span class="episodes">
+                  <mat-icon>tv</mat-icon>
+                  {{ movieDetails.details.episodeCount }} episodes
+                </span>
+              }
+              @if (movieDetails.details.seasonCount) {
+                <span class="seasons">
+                  {{ movieDetails.details.seasonCount }} seasons
+                </span>
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="movie-content">
+          <div class="movie-poster">
+            <img 
+              [src]="movieDetails.details.backgroundImage?.url || movieDetails.details.logoImage?.url" 
+              [alt]="movieDetails.details.title"
+              class="poster-image"
+            >
+          </div>
+
+          <div class="movie-details">
+            @if (movieDetails.details.synopsis) {
+              <div class="synopsis">
+                <h3>Synopsis</h3>
+                <p>{{ movieDetails.details.synopsis }}</p>
+              </div>
+            }
+
+            @if (movieDetails.details.contextualSynopsis?.text) {
+              <div class="contextual-synopsis">
+                <h3>Contextual Description</h3>
+                <p>{{ movieDetails.details.contextualSynopsis?.text }}</p>
+              </div>
+            }
+
+            @if (movieDetails.details.genres && movieDetails.details.genres.length > 0) {
+              <div class="genres">
+                <h3>Genres</h3>
+                <div class="genre-chips">
+                  <mat-chip *ngFor="let genre of movieDetails.details.genres" class="genre-chip">
+                    {{ genre.name }}
+                  </mat-chip>
+                </div>
+              </div>
+            }
+
+            @if (movieDetails.details.cast && movieDetails.details.cast.length > 0) {
+              <div class="cast">
+                <h3>Cast</h3>
+                <div class="cast-chips">
+                  <mat-chip *ngFor="let actor of movieDetails.details.cast.slice(0, 10)" class="cast-chip">
+                    {{ actor.name }}
+                  </mat-chip>
+                </div>
+              </div>
+            }
+
+            @if (movieDetails.details.creators && movieDetails.details.creators.length > 0) {
+              <div class="creators">
+                <h3>Creators</h3>
+                <div class="creator-chips">
+                  <mat-chip *ngFor="let creator of movieDetails.details.creators" class="creator-chip">
+                    {{ creator.name }}
+                  </mat-chip>
+                </div>
+              </div>
+            }
+
+            @if (movieDetails.details.delivery) {
+              <div class="delivery-info">
+                <h3>Video Quality</h3>
+                <div class="delivery-chips">
+                  @if (movieDetails.details.delivery.hasHD) {
+                    <mat-chip class="delivery-chip">HD</mat-chip>
+                  }
+                  @if (movieDetails.details.delivery.hasUltraHD) {
+                    <mat-chip class="delivery-chip">4K</mat-chip>
+                  }
+                  @if (movieDetails.details.delivery.hasHDR) {
+                    <mat-chip class="delivery-chip">HDR</mat-chip>
+                  }
+                  @if (movieDetails.details.delivery.hasDolbyVision) {
+                    <mat-chip class="delivery-chip">Dolby Vision</mat-chip>
+                  }
+                  @if (movieDetails.details.delivery.hasDolbyAtmos) {
+                    <mat-chip class="delivery-chip">Dolby Atmos</mat-chip>
+                  }
+                </div>
+              </div>
+            }
+
+            <div class="actions">
+              <button 
+                mat-raised-button 
+                color="primary"
+                (click)="addToWatchlist()"
+                [disabled]="isInWatchlist()"
+                class="add-to-watchlist-btn"
+              >
+                <mat-icon>{{ isInWatchlist() ? 'check' : 'add' }}</mat-icon>
+                {{ isInWatchlist() ? 'In Watchlist' : 'Add to Watchlist' }}
+              </button>
+
+              <button 
+                mat-stroked-button 
+                color="primary"
+                (click)="goToWatchlist()"
+                class="view-watchlist-btn"
+              >
+                <mat-icon>playlist_add</mat-icon>
+                View My Watchlist
+              </button>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  }
+</div>

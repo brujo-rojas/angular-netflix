@@ -1,0 +1,160 @@
+<div class="watchlist-container mb-3">
+  <div class="mb-3 mt-3">
+    <h1 class="m-0 mb-2">My Watchlist</h1>
+    <p class="m-0" style="opacity: 0.7;">Manage your saved movies and ratings</p>
+  </div>
+  
+  <mat-card class="watchlist-card">
+    <mat-card-content>
+      @if (!hasItems) {
+        <div class="empty-state">
+          <mat-icon class="empty-icon">movie</mat-icon>
+          <h3>Your list is empty</h3>
+          <p>Search for movies and add them to your watchlist to watch later.</p>
+        </div>
+      }
+
+      
+      @if (hasItems) {
+        <div class="table-container">
+        <div class="table-header mb-2">
+          <button 
+            mat-raised-button 
+            color="warn" 
+            (click)="clearAll()"
+            class="clear-button"
+          >
+            <mat-icon>clear_all</mat-icon>
+            Clear List
+          </button>
+        </div>
+
+        <table mat-table [dataSource]="watchlist" class="watchlist-table">
+          
+          <ng-container matColumnDef="image">
+            <th mat-header-cell *matHeaderCellDef>Image</th>
+            <td mat-cell *matCellDef="let movie">
+              <img 
+                [src]="movie.image" 
+                [alt]="movie.title"
+                class="movie-thumbnail"
+                loading="lazy"
+              >
+            </td>
+          </ng-container>
+
+          
+          <ng-container matColumnDef="info">
+            <th mat-header-cell *matHeaderCellDef>Movie Info</th>
+            <td mat-cell *matCellDef="let movie">
+              <div class="info-cell m-1">
+                <div class="title-row">
+                  <a [routerLink]="['/movie', movie.id]" class="movie-link">
+                    {{ movie.title }}
+                  </a>
+                  @if (movie.year) {
+                    <span class="year">{{ movie.year }}</span>
+                  }
+                  @if (movie.rating) {
+                    <span class="rating-badge">{{ movie.rating }}</span>
+                  }
+                </div>
+                @if (movie.synopsis) {
+                  <p class="synopsis-preview">
+                    {{ movie.synopsis | slice:0:80 }}{{ movie.synopsis.length > 80 ? '...' : '' }}
+                  </p>
+                }
+                @if (movie.genres && movie.genres.length > 0) {
+                  <div class="genres">
+                    <span class="genres-text">{{ getGenreText(movie.genres) }}</span>
+                  </div>
+                }
+              </div>
+            </td>
+          </ng-container>
+
+          
+          <ng-container matColumnDef="userRating">
+            <th mat-header-cell *matHeaderCellDef>My Rating</th>
+            <td mat-cell *matCellDef="let movie">
+              @if (!isEditing[movie.id]) {
+                <span>{{ movie.userRating ? movie.userRating + ' ⭐' : 'Not rated' }}</span>
+              } @else {
+                <app-rating-selector 
+                  [rating]="tempRatings[movie.id] || 0"
+                  (ratingChange)="tempRatings[movie.id] = $event">
+                </app-rating-selector>
+              }
+            </td>
+          </ng-container>
+
+          
+          <ng-container matColumnDef="userComment">
+            <th mat-header-cell *matHeaderCellDef class="comment-header">My Comment</th>
+            <td mat-cell *matCellDef="let movie" class="comment-cell-wide">
+              @if (!isEditing[movie.id]) {
+                <p class="comment-text">
+                  {{ movie.userComment || 'No comment' }}
+                </p>
+              } @else {
+                <textarea 
+                  [(ngModel)]="tempComments[movie.id]"
+                  placeholder="Add your comment..."
+                  class="comment-input"
+                  rows="3"
+                ></textarea>
+              }
+            </td>
+          </ng-container>
+
+          
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let movie">
+              <div class="flex gap-1">
+                @if (!isEditing[movie.id]) {
+                  <button 
+                    mat-icon-button 
+                    color="primary"
+                    (click)="toggleEdit(movie.id)"
+                    matTooltip="Edit comment"
+                  >
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button 
+                    mat-icon-button 
+                    color="warn"
+                    (click)="removeFromWatchlist(movie)"
+                    matTooltip="Remove from list"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                } @else {
+                  <button 
+                    mat-icon-button 
+                    color="primary"
+                    (click)="saveEdit(movie)"
+                    matTooltip="Save changes"
+                  >
+                    <mat-icon>check</mat-icon>
+                  </button>
+                  <button 
+                    mat-icon-button 
+                    (click)="cancelEdit(movie.id)"
+                    matTooltip="Cancel edit"
+                  >
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                }
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        </div>
+      }
+    </mat-card-content>
+  </mat-card>
+</div>

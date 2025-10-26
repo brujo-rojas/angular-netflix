@@ -1,0 +1,43 @@
+@use '@angular/material' as mat;
+@use './app/shared/styles/utilities.scss' as *;
+
+@include mat.core();
+
+$my-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$azure-palette,
+  ),
+));
+
+@include mat.all-component-themes($my-theme);
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.app-toolbar {
+  --mat-toolbar-container-background-color: #BF360C;
+  --mat-toolbar-container-text-color: white;
+  --mat-tab-active-label-text-color: white;
+  --mat-tab-inactive-label-text-color: rgba(255, 255, 255, 0.8);
+  --mat-tab-active-hover-label-text-color: white;
+  
+  ::ng-deep mat-icon {
+    color: white !important;
+  }
+  
+  ::ng-deep .mat-mdc-tab-label-container {
+    .mat-mdc-tab-label {
+      color: rgba(255, 255, 255, 0.8);
+      
+      &.mdc-tab--active {
+        color: white;
+      }
+    }
+  }
+}

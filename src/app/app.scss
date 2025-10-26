@@ -1,0 +1,30 @@
+.app-container {
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding-bottom: 8rem;
+}
+
+.toolbar-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.app-tabs {
+  max-width: 500px;
+}
+
+::ng-deep .app-toolbar .mat-mdc-tab-group {
+  padding-bottom: 0;
+  
+  .mat-mdc-tab-header {
+    padding-bottom: 0;
+    margin-bottom: -16px;
+  }
+}
+
+.watchlist-badge {
+  margin-left: 8px;
+}

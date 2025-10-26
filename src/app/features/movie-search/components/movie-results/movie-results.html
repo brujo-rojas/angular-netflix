@@ -1,0 +1,35 @@
+<div class="results-container">
+  
+  @if (loading) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    <p class="mt-2">Searching movies...</p>
+  }
+
+  
+  @if (error && !loading) {
+    <div class="error-container">
+      <mat-icon color="warn">error</mat-icon>
+      <p>{{ error }}</p>
+    </div>
+  }
+
+  
+  @if (!loading && !error && !hasResults) {
+    <div class="no-results-container">
+      <mat-icon>movie</mat-icon>
+      <p>No movies found. Try a different search term.</p>
+    </div>
+  }
+
+  
+  @if (hasResults && !loading) {
+    <div class="movies-grid">
+    <app-movie-card 
+      *ngFor="let movie of movies"
+      [movie]="movie"
+      [isInWatchlist]="isInWatchlist(movie.id)"
+      (addToWatchlist)="onAddToWatchlist($event)">
+    </app-movie-card>
+    </div>
+  }
+</div>

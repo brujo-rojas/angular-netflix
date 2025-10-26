@@ -1,0 +1,72 @@
+.watchlist-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  box-sizing: border-box;
+  width: 100%;
+
+  ::ng-deep .watchlist-card .mat-mdc-card {
+    background: var(--mat-card-container-background-color);
+    padding: 12px;
+  }
+
+  ::ng-deep .mat-mdc-table {
+    background: transparent;
+  }
+
+  ::ng-deep .mat-mdc-header-row,
+  ::ng-deep .mat-mdc-row {
+    background: transparent;
+  }
+
+  ::ng-deep .mat-mdc-header-cell,
+  ::ng-deep .mat-mdc-cell {
+    background: transparent;
+    padding: 16px;
+  }
+}
+
+.table-container {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.watchlist-table {
+  min-width: 900px;
+  width: 100%;
+}
+
+.movie-thumbnail {
+  width: 60px;
+  height: 90px;
+  object-fit: cover;
+}
+
+.info-cell {
+  .title-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+}
+
+.comment-header {
+  min-width: 300px;
+  max-width: 400px;
+}
+
+.comment-cell-wide {
+  min-width: 300px;
+  max-width: 400px;
+}
+
+.comment-text {
+  margin: 0;
+  word-wrap: break-word;
+}
+
+.comment-input {
+  width: 100%;
+  min-width: 280px;
+}

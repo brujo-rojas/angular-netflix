@@ -1,0 +1,41 @@
+<div class="movie-search-container mb-3">
+  <div class="mb-3 mt-3">
+    <h1 class="m-0 mb-2">Search Movies</h1>
+    <p class="m-0" style="opacity: 0.7;">Find your favorite movies and TV shows</p>
+  </div>
+  
+  <app-movie-search [initialQuery]="restoredQuery" (searchEvent)="onSearch($event)" class="mb-3"></app-movie-search>
+  
+  @if (!loading && movies.length > 0) {
+    <div class="flex justify-end mb-3">
+      <mat-form-field appearance="outline">
+        <mat-label>Results per page</mat-label>
+        <mat-select [(ngModel)]="pageSize" (selectionChange)="onPageSizeChange()">
+          <mat-option *ngFor="let option of pageSizeOptions" [value]="option">
+            {{ option }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  }
+  
+  <app-movie-results 
+    [movies]="movies" 
+    [loading]="loading" 
+    [error]="error"
+    (addToWatchlist)="onAddToWatchlist($event)"
+    class="mb-3">
+  </app-movie-results>
+  
+  @if (!loading && movies.length > 0) {
+    <mat-paginator
+    [length]="totalResults"
+    [pageSize]="pageSize"
+    [pageIndex]="pageIndex"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="onPageChange($event)"
+    showFirstLastButtons
+    class="mt-3 mb-4">
+    </mat-paginator>
+  }
+</div>
