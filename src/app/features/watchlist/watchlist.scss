@@ -4,19 +4,26 @@
   padding: 0 16px;
   box-sizing: border-box;
   width: 100%;
-}
 
-.page-header {
-  margin-bottom: 24px;
-}
+  ::ng-deep .watchlist-card .mat-mdc-card {
+    background: var(--mat-card-container-background-color);
+    padding: 12px;
+  }
 
-.page-title {
-  margin: 0 0 8px 0;
-}
+  ::ng-deep .mat-mdc-table {
+    background: transparent;
+  }
 
-.page-subtitle {
-  margin: 0;
-  opacity: 0.7;
+  ::ng-deep .mat-mdc-header-row,
+  ::ng-deep .mat-mdc-row {
+    background: transparent;
+  }
+
+  ::ng-deep .mat-mdc-header-cell,
+  ::ng-deep .mat-mdc-cell {
+    background: transparent;
+    padding: 16px;
+  }
 }
 
 .table-container {
@@ -44,12 +51,22 @@
   }
 }
 
-.comment-input {
-  width: 100%;
+.comment-header {
+  min-width: 300px;
+  max-width: 400px;
 }
 
-.comment-actions {
-  display: flex;
-  gap: 8px;
-  justify-content: flex-end;
+.comment-cell-wide {
+  min-width: 300px;
+  max-width: 400px;
+}
+
+.comment-text {
+  margin: 0;
+  word-wrap: break-word;
+}
+
+.comment-input {
+  width: 100%;
+  min-width: 280px;
 }

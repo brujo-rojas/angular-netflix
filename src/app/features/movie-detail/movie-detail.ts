@@ -5,7 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MovieDetailResponse, NetflixJawSummary } from '../../core/models/movie-search-response.interface';
 import { WatchlistService } from '../../core/services/watchlist.service';
@@ -21,7 +21,7 @@ import { of } from 'rxjs';
     MatButtonModule,
     MatIconModule,
     MatChipsModule,
-    MatProgressSpinnerModule,
+    MatProgressBarModule,
     MatSnackBarModule
   ],
   templateUrl: './movie-detail.html',

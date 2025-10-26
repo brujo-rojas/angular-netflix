@@ -1,10 +1,89 @@
 .movie-detail-container {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 16px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.movie-detail-card {
+  padding: 12px;
+}
+
+.movie-header {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.movie-title {
+  margin: 0;
 }
 
 .movie-content {
   display: grid;
   grid-template-columns: 300px 1fr;
   gap: 32px;
+}
+
+.movie-poster {
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+}
+
+.synopsis,
+.contextual-synopsis,
+.genres,
+.cast,
+.creators,
+.delivery-info {
+  margin-bottom: 24px;
+}
+
+.genre-chips,
+.cast-chips,
+.creator-chips,
+.delivery-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.actions {
+  margin-top: 32px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .movie-content {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .movie-poster {
+    text-align: center;
+    
+    img {
+      max-width: 250px;
+      margin: 0 auto;
+    }
+  }
+
+  .movie-header {
+    margin-bottom: 16px;
+  }
+
+  .actions {
+    flex-direction: column;
+    
+    button {
+      width: 100%;
+    }
+  }
 }

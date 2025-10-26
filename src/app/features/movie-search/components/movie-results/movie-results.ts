@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { Movie } from '../../../../core/models/movie-search-response.interface';
@@ -11,7 +11,7 @@ import { WatchlistService } from '../../../../core/services/watchlist.service';
   selector: 'app-movie-results',
   imports: [
     CommonModule,
-    MatProgressSpinnerModule,
+    MatProgressBarModule,
     MatIconModule,
     MatSnackBarModule,
     MovieCardComponent

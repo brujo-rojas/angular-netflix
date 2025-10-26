@@ -33,6 +33,7 @@ export class WatchlistComponent implements OnInit, OnDestroy {
   watchlist: Movie[] = [];
   isEditing: { [key: string]: boolean } = {};
   tempComments: { [key: string]: string } = {};
+  tempRatings: { [key: string]: number } = {};
   private destroy$ = new Subject<void>();
 
   constructor(
@@ -94,18 +95,21 @@ export class WatchlistComponent implements OnInit, OnDestroy {
       this.isEditing[movieId] = true;
       const movie = this.watchlist.find(m => m.id === movieId);
       this.tempComments[movieId] = movie?.userComment || '';
+      this.tempRatings[movieId] = movie?.userRating || 0;
     }
   }
 
-  saveComment(movie: Movie): void {
+  saveEdit(movie: Movie): void {
     this.watchlistService.updateMovieComment(movie.id, this.tempComments[movie.id] || '');
+    this.watchlistService.updateMovieRating(movie.id, this.tempRatings[movie.id] || 0);
     this.isEditing[movie.id] = false;
-    this.snackBar.open('Comment saved', 'Close', { duration: 2000, verticalPosition: 'top', horizontalPosition: 'center' });
+    this.snackBar.open('Changes saved', 'Close', { duration: 2000, verticalPosition: 'top', horizontalPosition: 'center' });
   }
 
   cancelEdit(movieId: string): void {
     this.isEditing[movieId] = false;
     delete this.tempComments[movieId];
+    delete this.tempRatings[movieId];
   }
 
   updateRating(movie: Movie, rating: number): void {
