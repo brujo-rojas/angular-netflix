@@ -6,8 +6,17 @@
       [(ngModel)]="searchQuery" 
       (keypress)="onKeyPress($event)"
       placeholder="Enter a movie name..."
+      [minlength]="2"
+      [maxlength]="50"
+      required
     >
     <mat-icon matSuffix>search</mat-icon>
+    @if (searchQuery && searchQuery.length < 2 && searchQuery.trim()) {
+      <mat-hint>Minimum 2 characters</mat-hint>
+    }
+    @if (searchQuery && searchQuery.length >= 50) {
+      <mat-hint>Maximum 50 characters</mat-hint>
+    }
   </mat-form-field>
   
   <button 

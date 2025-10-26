@@ -36,8 +36,9 @@ export class MovieSearchComponent implements OnInit, OnChanges {
   }
 
   onSearch(): void {
-    if (this.searchQuery.trim()) {
-      this.searchEvent.emit(this.searchQuery.trim());
+    const trimmedQuery = this.searchQuery.trim();
+    if (trimmedQuery && trimmedQuery.length >= 2 && trimmedQuery.length <= 50) {
+      this.searchEvent.emit(trimmedQuery);
     }
   }
 

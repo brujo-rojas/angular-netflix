@@ -1,5 +1,5 @@
 // Este archivo se genera automáticamente desde .env
-// Para cambiar la configuración, edita el archivo .env en la raíz del proyecto
+// Para cambiar la configuración, edita las variables de entorno en Netlify o el archivo .env local
 
 export const environment = {
   production: false,

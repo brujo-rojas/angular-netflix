@@ -31,6 +31,13 @@
 
         <table mat-table [dataSource]="watchlist" class="watchlist-table">
           
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>ID</th>
+            <td mat-cell *matCellDef="let movie">
+              <span class="id-text">{{ movie.id }}</span>
+            </td>
+          </ng-container>
+
           <ng-container matColumnDef="image">
             <th mat-header-cell *matHeaderCellDef>Image</th>
             <td mat-cell *matCellDef="let movie">
@@ -99,10 +106,15 @@
               } @else {
                 <textarea 
                   [(ngModel)]="tempComments[movie.id]"
+                  (input)="truncateComment(movie.id)"
+                  [maxlength]="100"
                   placeholder="Add your comment..."
                   class="comment-input"
                   rows="3"
                 ></textarea>
+                <div class="comment-counter">
+                  {{ (tempComments[movie.id]?.length || 0) }}/100
+                </div>
               }
             </td>
           </ng-container>

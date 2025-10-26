@@ -29,7 +29,7 @@ import { RatingSelectorComponent } from '../../shared/components/rating-selector
   styleUrl: './watchlist.scss',
 })
 export class WatchlistComponent implements OnInit, OnDestroy {
-  displayedColumns: string[] = ['image', 'info', 'userRating', 'userComment', 'actions'];
+  displayedColumns: string[] = ['id', 'image', 'info', 'userRating', 'userComment', 'actions'];
   watchlist: Movie[] = [];
   isEditing: { [key: string]: boolean } = {};
   tempComments: { [key: string]: string } = {};
@@ -114,6 +114,13 @@ export class WatchlistComponent implements OnInit, OnDestroy {
 
   updateRating(movie: Movie, rating: number): void {
     this.watchlistService.updateMovieRating(movie.id, rating);
+  }
+
+  truncateComment(movieId: string): void {
+    const comment = this.tempComments[movieId] || '';
+    if (comment.length > 100) {
+      this.tempComments[movieId] = comment.substring(0, 100);
+    }
   }
 
   get hasItems(): boolean {
