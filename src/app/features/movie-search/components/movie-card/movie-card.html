@@ -1,0 +1,74 @@
+<mat-card class="movie-card">
+  <mat-card-header>
+    <mat-card-title>
+      <a [routerLink]="['/movie', movie.id]" class="movie-title-link">
+        {{ movie.title }}
+      </a>
+    </mat-card-title>
+    @if (movie.year) {
+      <mat-card-subtitle>{{ movie.year }}</mat-card-subtitle>
+    }
+  </mat-card-header>
+  
+  @if (movie.image) {
+    <img 
+      mat-card-image 
+      [src]="movie.image" 
+      [alt]="movie.title"
+      class="movie-image"
+    >
+  }
+  
+  <mat-card-content>
+    @if (movie.synopsis) {
+      <p class="synopsis">{{ movie.synopsis }}</p>
+    }
+    
+    @if (movie.genres && movie.genres.length > 0) {
+      <div class="genres">
+        <mat-chip *ngFor="let genre of movie.genres" class="genre-chip">
+          {{ genre }}
+        </mat-chip>
+      </div>
+    }
+    
+    <div class="movie-info">
+      @if (movie.runtime) {
+        <span class="runtime">
+          <mat-icon>schedule</mat-icon>
+          {{ movie.runtime }} min
+        </span>
+      }
+      @if (movie.rating) {
+        <span class="rating">
+          <mat-icon>star</mat-icon>
+          {{ movie.rating }}
+        </span>
+      }
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button 
+      mat-stroked-button 
+      color="primary"
+      [routerLink]="['/movie', movie.id]"
+      class="view-details-btn"
+    >
+      <mat-icon>visibility</mat-icon>
+      View Details
+    </button>
+    
+    <button 
+      mat-raised-button 
+      color="primary"
+      (click)="onAddToWatchlist()"
+      [disabled]="isInWatchlist"
+      class="add-to-watchlist-btn"
+    >
+      <mat-icon>{{ isInWatchlist ? 'check' : 'add' }}</mat-icon>
+      {{ isInWatchlist ? 'In List' : 'Add to Watchlist' }}
+    </button>
+  </mat-card-actions>
+</mat-card>
+
