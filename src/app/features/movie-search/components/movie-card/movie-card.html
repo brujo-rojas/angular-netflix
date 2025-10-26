@@ -24,14 +24,6 @@
       <p class="synopsis">{{ movie.synopsis }}</p>
     }
     
-    @if (movie.genres && movie.genres.length > 0) {
-      <div class="genres">
-        <mat-chip *ngFor="let genre of movie.genres" class="genre-chip">
-          {{ genre }}
-        </mat-chip>
-      </div>
-    }
-    
     <div class="movie-info">
       @if (movie.runtime) {
         <span class="runtime">
@@ -48,14 +40,13 @@
     </div>
   </mat-card-content>
 
-  <mat-card-actions>
+  <mat-card-actions class="flex flex-column gap-1">
     <button 
-      mat-stroked-button 
+      mat-raised-button 
       color="primary"
       [routerLink]="['/movie', movie.id]"
       class="view-details-btn"
     >
-      <mat-icon>visibility</mat-icon>
       View Details
     </button>
     

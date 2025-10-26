@@ -107,10 +107,11 @@ export class MovieApiService {
       'X-RapidAPI-Host': apiConfig.rapidApiHost
     });
 
-    const detailsUrl = `https://netflix54.p.rapidapi.com/title/${movieId}?lang=en`;
+    const detailsUrl = `https://netflix54.p.rapidapi.com/title/details/?ids=${movieId}&endYear=2024&startYear=1950`;
 
     return this.http.get<MovieDetailResponse[]>(detailsUrl, { headers }).pipe(
       map(response => {
+        console.log('API response for details:', response);
         if (response && response.length > 0) {
           return response[0];
         }

@@ -1,10 +1,32 @@
 .watchlist-container {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 16px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.page-header {
+  margin-bottom: 24px;
+}
+
+.page-title {
+  margin: 0 0 8px 0;
+}
+
+.page-subtitle {
+  margin: 0;
+  opacity: 0.7;
+}
+
+.table-container {
+  overflow-x: auto;
+  width: 100%;
 }
 
 .watchlist-table {
   min-width: 900px;
+  width: 100%;
 }
 
 .movie-thumbnail {

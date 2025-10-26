@@ -10,6 +10,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MovieDetailResponse, NetflixJawSummary } from '../../core/models/movie-search-response.interface';
 import { WatchlistService } from '../../core/services/watchlist.service';
 import { MovieApiService } from '../../core/services/movie-api.service';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-movie-detail',
@@ -50,8 +51,10 @@ export class MovieDetailComponent implements OnInit {
   }
 
   private loadMovie(movieId: string): void {
+    console.log('Loading movie details for ID:', movieId);
     this.movieApiService.getMovieDetails(movieId).subscribe({
       next: (movieDetails: MovieDetailResponse | null) => {
+        console.log('Movie details received:', movieDetails);
         if (movieDetails) {
           this.movieDetails = movieDetails;
         } else {
